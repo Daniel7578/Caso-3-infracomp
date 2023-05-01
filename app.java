@@ -6,7 +6,9 @@ public class app {
     private String hashDocumento;
     private String cadena;
     private HashGenerator hashGenerator = new HashGenerator();
-    List<Character> alphabetList = new ArrayList<Character>();
+    String alphabet = "abcdefghijklmnopqrstuvwxyz";
+    private int tamanioContrasenia = 7;
+    private Decifrador decifrador;
     public void metodoPrincipal (){
         try (Scanner lectorInputs = new Scanner(System.in)) {
             System.out.println("Ingrese el tipo de algoritmo que desea usar: ");
@@ -43,9 +45,23 @@ public class app {
             }
         }
         this.hashDocumento = hashGenerator.hashing(cadena,tipoHash,sal);
-        for (char c = 'a'; c <= 'z'; c++) {
-            alphabetList.add(c);
+        char [] alphabetList = alphabet.toCharArray();
+        this.decifrador = new Decifrador(hashDocumento, sal, tipoHash);
+        long startTime = System.nanoTime();
+        for (int tmpLenPassword  = 1; tmpLenPassword <= tamanioContrasenia; tmpLenPassword ++){
+            decifrador.constructorCombinaciones(alphabetList, new StringBuilder(), alphabetList.length, tmpLenPassword);
         }
+        long endTime = System.nanoTime();
+        double tiempo = (endTime - startTime)/ 1000000000.0;
+        System.out.println(decifrador.getContraseniaFinal());
+        System.out.println(tiempo);
+
+        // if #T == 1:
+        //  decifrador.verificarClaves(hashDocumento,alphabetList,sal,size=7)
+        // if #T == 2:
+        //    modificarListaAlfabeto()
+        //    t1.start(dividido1,alphabetList)
+        //    t2.stat(dividido2, alphabetList)
         
         
     }

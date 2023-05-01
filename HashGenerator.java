@@ -24,12 +24,10 @@ public class HashGenerator {
         sb.append(String.format("%02x", b));
       }
       sha256Hash = sb.toString();
+      System.out.println(inpuString);
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
-    
-    System.out.println("La cadena de entrada es: " + inputString);
-    System.out.println("El hash SHA-256 de la cadena es: " + sha256Hash);
     return sha256Hash;
   }
   public boolean hashComparator(String expectedHash, String actualHash){
