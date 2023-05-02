@@ -3,7 +3,7 @@ public class app {
     private int numeroThreads;
     private String tipoHash;
     private String sal;
-    private String hashDocumento;
+    private byte[] hashDocumento;
     private String cadena;
     private HashGenerator hashGenerator = new HashGenerator();
     String alphabet = "abcdefghijklmnopqrstuvwxyz";

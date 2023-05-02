@@ -1,12 +1,14 @@
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.*;
 
 public class HashGenerator {
 
-  public String hashing(String inpuString, String hashString, String sal) {
+  public byte[] hashing(String inpuString, String hashString, String sal) {
   
     String inputString = inpuString+sal;
     String sha256Hash = "";
+    byte[] hashBytes = null;
 
     try {
       // Obtener la instancia de MessageDigest con el algoritmo SHA-256
@@ -16,26 +18,18 @@ public class HashGenerator {
       byte[] inputBytes = inputString.getBytes();
       
       // Generar el hash de la cadena
-      byte[] hashBytes = sha256.digest(inputBytes);
+      hashBytes = sha256.digest(inputBytes);
       
-      // Convertir el arreglo de bytes del hash en una cadena hexadecimal
-      StringBuilder sb = new StringBuilder();
-      for (byte b : hashBytes) {
-        sb.append(String.format("%02x", b));
-      }
-      sha256Hash = sb.toString();
-      System.out.println(inpuString);
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
-    return sha256Hash;
+    return hashBytes;
   }
-  public boolean hashComparator(String expectedHash, String actualHash){
-    if (expectedHash.equalsIgnoreCase(actualHash)) {
+  public boolean hashComparator(byte[] expectedHash, byte[] actualHash){
+    if (Arrays.equals(expectedHash, actualHash)) {
         System.out.println("Los hashes coinciden.");
         return true;
       } else {
-        System.out.println("Los hashes no coinciden.");
         return false;
       }
   }
