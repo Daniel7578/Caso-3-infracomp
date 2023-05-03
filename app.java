@@ -56,30 +56,24 @@ public class app {
 
         char [] alphabetIncompletet1 = alfabetoIncomletoT1.toCharArray();
         char [] alphabetIncompletet2 = alfabetoIncomletoT2.toCharArray();
-        CombinatorioaRunnable t1 = new CombinatorioaRunnable(alphabetIncompletet1, new StringBuilder(), alphabetIncompletet1.length, tamanioContrasenia, tipoHash, sal, hashDocumento, alphabetList);
-        CombinatorioaRunnable t2 = new CombinatorioaRunnable(alphabetIncompletet2, new StringBuilder(), alphabetIncompletet2.length, tamanioContrasenia, tipoHash, sal, hashDocumento, alphabetList);
+        CombinatorioaRunnable t1 = new CombinatorioaRunnable(1, alphabetIncompletet1, new StringBuilder(), alphabetIncompletet1.length, tamanioContrasenia, tipoHash, sal, hashDocumento, alphabetList);
+        CombinatorioaRunnable t2 = new CombinatorioaRunnable(2, alphabetIncompletet2, new StringBuilder(), alphabetIncompletet2.length, tamanioContrasenia, tipoHash, sal, hashDocumento, alphabetList);
         t1.start();
         t2.start();
+
         try {
             t1.join();
             t2.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        
         long endTime = System.nanoTime();
         double tiempo = (endTime - startTime)/ 1000000000.0;
         System.out.println(t1.getContraseniaFinal());
+        System.out.println(t2.getContraseniaFinal());
         //System.out.println(decifrador.getContraseniaFinal());
-        System.out.println(tiempo);
-
-        // if #T == 1:
-        //  decifrador.verificarClaves(hashDocumento,alphabetList,sal,size=7)
-        // if #T == 2:
-        //    modificarListaAlfabeto()
-        //    t1.start(dividido1,alphabetList)
-        //    t2.stat(dividido2, alphabetList)
-        
-        
+        System.out.println(tiempo);        
     }
     
 }

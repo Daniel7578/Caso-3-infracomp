@@ -10,8 +10,8 @@ public class CombinatorioaRunnable extends Thread {
     private static boolean encontrada = false;
     private String contraseniaFinal;
     private char[] alfabetoCompleto;
-
-    public CombinatorioaRunnable(char[] alfabeto, StringBuilder tmpPassword, int cantLetras, int tamanioMaximo, String tipoHash, String sal, byte[] hashDocumento, char[] alfabetoCompleto) {
+    private int id;
+    public CombinatorioaRunnable(int id, char[] alfabeto, StringBuilder tmpPassword, int cantLetras, int tamanioMaximo, String tipoHash, String sal, byte[] hashDocumento, char[] alfabetoCompleto) {
         this.alfabeto = alfabeto;
         this.tmpPassword = tmpPassword;
         this.cantLetras = cantLetras;
@@ -21,6 +21,7 @@ public class CombinatorioaRunnable extends Thread {
         this.hashDocumento = hashDocumento;
         this.contraseniaFinal = null;
         this.alfabetoCompleto = alfabetoCompleto;
+        this.id = id;
     }
     @Override
     public void run() {
@@ -30,16 +31,18 @@ public class CombinatorioaRunnable extends Thread {
     }
     private void constructorCombinaciones(char[] alfabeto,StringBuilder tmpPassword,int cantLetras ,int tamanioContrasenia, char[]AlfabetoCompleto) {//3
         if (tamanioContrasenia == 0) {
-                System.out.println(encontrada);
+        	synchronized (CombinatorioaRunnable.class) {
                 if (encontrada){
                     return;
                 }
                 byte[] hashEncontrada = hashGenerator.hashing(tmpPassword.toString(), tipoHash, sal);
                 encontrada = hashGenerator.hashComparator(hashDocumento, hashEncontrada);
-                System.out.println(encontrada);
                 if (encontrada){
+                System.out.println("ENCONTRADA POR: "+Integer.toString(id));
+
                 contraseniaFinal = tmpPassword.toString();
                 }
+        	}
                 return;
             
             
