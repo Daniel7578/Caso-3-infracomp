@@ -52,9 +52,26 @@ public class app {
 <<<<<<< Updated upstream
         this.decifrador = new Decifrador(hashDocumento, sal, tipoHash);
         long startTime = System.nanoTime();
-        for (int tmpLenPassword  = 1; tmpLenPassword <= tamanioContrasenia; tmpLenPassword ++){
-            decifrador.constructorCombinaciones(alphabetList, new StringBuilder(), alphabetList.length, tmpLenPassword);
+        //for (int tmpLenPassword  = 1; tmpLenPassword <= tamanioContrasenia; tmpLenPassword ++){
+        //    decifrador.constructorCombinaciones(alphabetList, new StringBuilder(), alphabetList.length, tmpLenPassword);
+        //}
+        String alfabetoIncomletoT1 = "abcdefghijklm";
+        String alfabetoIncomletoT2 = "nopqrstuvwxyz";
+
+        char [] alphabetIncompletet1 = alfabetoIncomletoT1.toCharArray();
+        char [] alphabetIncompletet2 = alfabetoIncomletoT2.toCharArray();
+        CombinatorioaRunnable t1 = new CombinatorioaRunnable(1, alphabetIncompletet1, new StringBuilder(), alphabetIncompletet1.length, tamanioContrasenia, tipoHash, sal, hashDocumento, alphabetList);
+        CombinatorioaRunnable t2 = new CombinatorioaRunnable(2, alphabetIncompletet2, new StringBuilder(), alphabetIncompletet2.length, tamanioContrasenia, tipoHash, sal, hashDocumento, alphabetList);
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        
         long endTime = System.nanoTime();
         double tiempo = (endTime - startTime)/ 1000000000.0;
         System.out.println(decifrador.getContraseniaFinal());
@@ -68,48 +85,6 @@ public class app {
         //    t2.stat(dividido2, alphabetList)
         
         
-=======
-        if (numeroThreads == 1){
-            this.decifrador = new Decifrador(hashDocumento, sal, tipoHash);
-            long startTime = System.nanoTime();
-            for (int tmpLenPassword  = 1; tmpLenPassword <= tamanioContrasenia; tmpLenPassword ++){
-                decifrador.constructorCombinaciones(alphabetList, new StringBuilder(), alphabetList.length, tmpLenPassword);
-            }
-            long endTime = System.nanoTime();
-            System.out.println("La constrasenia encontrada fue: " + decifrador.getContraseniaFinal());
-            double tiempo = (endTime - startTime)/ 1000000000.0;
-            System.out.println("El programa tardo: "+ tiempo); 
-        }
-        else{
-            char [] alphabetIncompletet1 = alfabetoIncomletoT1.toCharArray();
-            char [] alphabetIncompletet2 = alfabetoIncomletoT2.toCharArray();
-            CombinatorioaRunnable t1 = new CombinatorioaRunnable(1, alphabetIncompletet1, new StringBuilder(), alphabetIncompletet1.length, tamanioContrasenia, tipoHash, sal, hashDocumento, alphabetList);
-            CombinatorioaRunnable t2 = new CombinatorioaRunnable(2, alphabetIncompletet2, new StringBuilder(), alphabetIncompletet2.length, tamanioContrasenia, tipoHash, sal, hashDocumento, alphabetList);
-            long startTime = System.nanoTime();
-            t1.start();
-            t2.start();
-
-            try {
-                t1.join();
-                t2.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            long endTime = System.nanoTime();
-            if (t1.getEncontrada()){
-                System.out.println("La contrasenia encontrada fue: " + t1.getContraseniaFinal());
-
-            }
-            else{
-                System.out.println("La contrasenia encontrada fue: " + t2.getContraseniaFinal());
-            }
-            double tiempo = (endTime - startTime)/ 1000000000.0;
-            System.out.println("El programa tardo: "+ tiempo); 
-        }
-        
-
-               
->>>>>>> Stashed changes
     }
     
 }

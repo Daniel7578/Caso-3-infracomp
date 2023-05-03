@@ -18,7 +18,6 @@ public class HashGenerator {
       
       // Generar el hash de la cadena
       hashBytes = sha256.digest(inputBytes);
-      
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
