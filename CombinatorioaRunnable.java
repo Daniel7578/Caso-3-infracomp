@@ -8,7 +8,7 @@ public class CombinatorioaRunnable extends Thread {
     private final String sal;
     private final byte[] hashDocumento;
     private static boolean encontrada = false;
-    private String contraseniaFinal;
+    private static String contraseniaFinal;
     private char[] alfabetoCompleto;
     private int id;
     public CombinatorioaRunnable(int id, char[] alfabeto, StringBuilder tmpPassword, int cantLetras, int tamanioMaximo, String tipoHash, String sal, byte[] hashDocumento, char[] alfabetoCompleto) {
@@ -39,7 +39,6 @@ public class CombinatorioaRunnable extends Thread {
                 encontrada = hashGenerator.hashComparator(hashDocumento, hashEncontrada);
                 if (encontrada){
                 System.out.println("ENCONTRADA POR: "+Integer.toString(id));
-
                 contraseniaFinal = tmpPassword.toString();
                 }
         	}

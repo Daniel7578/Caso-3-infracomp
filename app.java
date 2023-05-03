@@ -9,6 +9,7 @@ public class app {
     String alphabet = "abcdefghijklmnopqrstuvwxyz";
     String alfabetoIncomletoT1 = "abcdefghijklm";
     String alfabetoIncomletoT2 = "nopqrstuvwxyz";
+    private HashGenerator hashGenerator = new HashGenerator();
     private int tamanioContrasenia = 7;
     private Decifrador decifrador;
     public void metodoPrincipal () throws Exception{
@@ -46,11 +47,15 @@ public class app {
                 throw new Exception("Digite un numero valido");
             }
         }
+        byte[] cadena2 = this.hashGenerator.hashing("mzzzz", tipoHash, sal);
         BigInteger bigInt = new BigInteger(cadena,16);
         this.hashDocumento = bigInt.toByteArray();
         if (hashDocumento.length > 64) {
             hashDocumento = Arrays.copyOfRange(hashDocumento, hashDocumento.length - 64, hashDocumento.length);
         }
+        System.out.println(cadena2.length);
+        System.out.println(hashDocumento.length);
+        System.out.println(hashGenerator.hashComparator(cadena2, hashDocumento));
         char [] alphabetList = alphabet.toCharArray();
         if (numeroThreads == 1){
             this.decifrador = new Decifrador(hashDocumento, sal, tipoHash);
@@ -84,7 +89,7 @@ public class app {
                 System.out.println("La contrasenia encontrada fue: " + t1.getContraseniaFinal());
 
             }
-            else{
+            else if (t2.getEncontrada()){
                 System.out.println("La contrasenia encontrada fue: " + t2.getContraseniaFinal());
             }
             double tiempo = (endTime - startTime)/ 1000000000.0;
