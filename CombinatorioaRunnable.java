@@ -25,7 +25,7 @@ public class CombinatorioaRunnable extends Thread {
     }
     @Override
     public void run() {
-        for (int tamanioContrasenia = 0; tamanioContrasenia < tamanioMaximo; tamanioContrasenia ++){
+        for (int tamanioContrasenia = 1; tamanioContrasenia <= tamanioMaximo; tamanioContrasenia ++){
             constructorCombinaciones(alfabeto, tmpPassword, cantLetras, tamanioContrasenia, alfabetoCompleto);
         }
     }
