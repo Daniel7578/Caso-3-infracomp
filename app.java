@@ -47,11 +47,14 @@ public class app {
                 throw new Exception("Digite un numero valido");
             }
         }
-        byte[] cadena2 = this.hashGenerator.hashing("mzzzz", tipoHash, sal);
+        byte[] cadena2 = this.hashGenerator.hashing("ajedrez", tipoHash, sal);
         BigInteger bigInt = new BigInteger(cadena,16);
         this.hashDocumento = bigInt.toByteArray();
         if (hashDocumento.length > 64) {
             hashDocumento = Arrays.copyOfRange(hashDocumento, hashDocumento.length - 64, hashDocumento.length);
+        }
+        else if (hashDocumento[0] == 0) {
+            hashDocumento = Arrays.copyOfRange(hashDocumento, 1, hashDocumento.length);
         }
         System.out.println(cadena2.length);
         System.out.println(hashDocumento.length);

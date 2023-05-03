@@ -18,6 +18,7 @@ public class pruebas {
             System.out.println("2 - SHA-512");
             String inputHash = lectorInputs.nextLine();
             System.out.println(inputHash);
+            System.out.println(cadena+sal);
             
             if (inputHash.equals("1")){
                 this.tipoHash = "SHA-256";
