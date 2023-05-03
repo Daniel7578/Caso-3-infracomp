@@ -6,7 +6,7 @@ public class pruebas {
 
     public void correrPrueba(){
         
-        this.hashdocumento = hashGenerator.hashingHexa(cadena, "SHA-256", sal);
+        this.hashdocumento = hashGenerator.hashingHexa(cadena, "SHA-512", sal);
         System.out.println(hashdocumento);
         
     }
